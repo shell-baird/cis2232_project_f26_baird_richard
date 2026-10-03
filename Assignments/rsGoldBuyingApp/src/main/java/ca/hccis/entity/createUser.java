@@ -45,6 +45,7 @@ public class createUser {
 
 
 
+
     public createUser(
             String userName,
             String characterName,
@@ -108,6 +109,13 @@ public class createUser {
 
     public void setCardExpInfo(String cardExpInfo) {
         this.cardExpInfo = cardExpInfo;
+    }
+
+    public double getGoldPurchaseAmount() {
+        return goldPurchaseAmount;
+    }
+    public void setGoldPurchaseAmount(double goldPurchaseAmount) {
+        this.goldPurchaseAmount = goldPurchaseAmount;
     }
 
 

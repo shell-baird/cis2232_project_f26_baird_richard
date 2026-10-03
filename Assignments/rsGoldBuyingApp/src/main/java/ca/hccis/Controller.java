@@ -1,16 +1,12 @@
 import ca.hccis.createFile;
 import ca.hccis.entity.createUser;
+import ca.hccis.BO.calculateGold;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
 import java.util.HashMap;
 
 
@@ -100,6 +96,11 @@ public static void main(String[] args) throws IOException {
             break;
         }
 
+        case "B": {
+            calculateGold calculateGold = new calculateGold();
+
+        }
+
 
         case "V":  {
 
@@ -137,11 +138,15 @@ public static void main(String[] args) throws IOException {
                 System.out.println("Address: " + user.getUserAddress());
                 System.out.println("Card: " + user.getCardNumber());
                 System.out.println("Card Expiry: " + user.getCardExpInfo());
-
+                System.out.println("Gold Purchased: " + user.goldPurchaseAmount);
                 System.out.println("----------------------");
             }
 
             break;
+
+
+
+
         }
     }
 
