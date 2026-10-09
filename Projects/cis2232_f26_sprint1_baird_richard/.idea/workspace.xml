@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b89a2cd4-5fc3-4077-b552-d4f5b15babc9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Assignments/cis2232_a1reference_maclean_bj/src/main/java/ca/hccis/files/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assignments/cis2232_a1reference_maclean_bj/src/main/java/ca/hccis/files/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b60683e5-721a-4744-8191-aafa53944307.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b60683e5-721a-4744-8191-aafa53944307.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ca/hccis/squash/controllers/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ca/hccis/squash/controllers/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/cisStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/cisStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,12 +75,12 @@
     &quot;assignee&quot;: &quot;shell-baird&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/cisbjmaclean/cis2232_f26_project_maclean_bj.git&quot;,
-    &quot;accountId&quot;: &quot;46f7bc6d-5e0e-4451-80b8-e4980c7b24b1&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/shell-baird/cis2232_project_f26_baird_richard.git",
+    "accountId": "46f7bc6d-5e0e-4451-80b8-e4980c7b24b1"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -123,10 +119,10 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.TheApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "sprint1",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rbaird/Documents/trying/cis2232_f26_project_maclean_bj/Project/squash_scoring_app",
+    "last_opened_file_path": "C:/Users/rbaird/Desktop/importantFolder/cis2232_project_f26_baird_richard/Projects/squash_scoring_app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
