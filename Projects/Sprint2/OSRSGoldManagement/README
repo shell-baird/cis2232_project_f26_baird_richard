@@ -1,3 +1,10 @@
-To access the page, gotta use:
+To access the page, gotta run the OsrsApplication java file, and then:
 
 http://localhost:8080/osrs-reports.html
+
+Should be able to navigate to the other pages there.
+
+The other pages are: http://localhost:8080/create-customer.html
+and
+http://localhost:8080/search-customers.html
+
