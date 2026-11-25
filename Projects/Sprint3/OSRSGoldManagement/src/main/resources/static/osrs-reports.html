@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OSRS Gold Reporting Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: #f9fafb;
+        }
+
+        header {
+            background: #1f2937;
+            padding: 25px 35px;
+            border-bottom: 3px solid #d4a017;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #f5c542;
+        }
+
+        header p {
+            color: #cbd5e1;
+            margin-bottom: 0;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .panel {
+            background: #1f2937;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            color: #f5c542;
+            margin-top: 0;
+        }
+
+        button {
+            padding: 11px 18px;
+            border-radius: 5px;
+            border: none;
+            background: #d4a017;
+            color: #111827;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #f5c542;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #1f2937;
+            padding: 22px;
+            border-radius: 10px;
+            border-left: 4px solid #d4a017;
+        }
+
+        .stat-card h3 {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .stat-card p {
+            font-size: 25px;
+            font-weight: bold;
+            color: #f5c542;
+            margin-bottom: 0;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 11px;
+            border-radius: 5px;
+            border: 1px solid #64748b;
+            background: #374151;
+            color: white;
+            font-size: 14px;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #374151;
+        }
+
+        th {
+            background: #374151;
+            color: #f5c542;
+        }
+
+        tr:hover {
+            background: #374151;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #f5c542;
+        }
+
+        .muted {
+            color: #9ca3af;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #9ca3af;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        nav a {
+            color: #f5c542;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>OSRS Gold Management</h1>
+
+    <p>Customer Orders and Sales Reporting Dashboard</p>
+
+    <nav>
+        <a href="/osrs-reports.html">Dashboard</a>
+        <a href="/create-customer.html">Create Customer</a>
+        <a href="/search-customers.html">Search Customers</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <!-- DATA CONNECTION -->
+
+    <section class="panel">
+
+        <h2>Customer Data</h2>
+
+        <button id="refreshButton" onclick="loadDashboard()">
+            Refresh Reports
+        </button>
+
+        <p id="message" aria-live="polite">
+            Connecting to Java application...
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD STATISTICS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <h3>Total Customers</h3>
+
+            <p id="totalCustomers">0</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Total Gold Purchased</h3>
+
+            <p id="totalGold">0</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Total Sales Value</h3>
+
+            <p id="totalSales">$0.00</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Average Gold Purchase</h3>
+
+            <p id="averageGold">0</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CUSTOMER REPORT -->
+
+    <section class="panel">
+
+        <h2>Customer Purchase Report</h2>
+
+        <div class="filters">
+
+            <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search username or character..."
+            >
+
+            <select id="goldFilter">
+
+                <option value="all">All Purchases</option>
+
+                <option value="small">
+                    Under 1 Million Gold
+                </option>
+
+                <option value="medium">
+                    1M - 10M Gold
+                </option>
+
+                <option value="large">
+                    Over 10 Million Gold
+                </option>
+
+            </select>
+
+
+            <button onclick="exportCSV()">
+                Export CSV
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Username</th>
+
+                    <th>Character</th>
+
+                    <th>Email</th>
+
+                    <th>Gold Purchased</th>
+
+                    <th>Purchase Value</th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody id="customerTable">
+
+                <tr>
+
+                    <td colspan="5">
+                        Loading customer information...
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <p id="recordCount" class="muted">
+            0 records found
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    OSRS Gold Management System | Customer Reporting
+
+</footer>
+
+
+<script>
+
+    // Gold purchase value from the Java application
+
+    const GOLD_VALUE = 0.00000025;
+
+
+    // Store customer records
+
+    let customers = [];
+
+
+    // LOAD CUSTOMERS FROM JAVA REST API
+
+    async function loadDashboard() {
+
+        const button = document.getElementById("refreshButton");
+
+        button.disabled = true;
+
+        try {
+
+            document.getElementById("message").textContent =
+                "Loading customer information...";
+
+            const response = await fetch("/api/users");
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to retrieve customer information."
+                );
+
+            }
+
+            const data = await response.json();
+
+            if (!Array.isArray(data)) {
+
+                throw new Error(
+                    "Unexpected customer data format."
+                );
+
+            }
+
+            customers = data;
+
+            // Load dashboard statistics
+
+            await loadSummary();
+
+            // Display customer information
+
+            displayCustomers();
+
+            document.getElementById("message").textContent =
+                "Successfully connected! " +
+                customers.length +
+                " customer records loaded.";
+
+        }
+
+        catch (error) {
+
+            document.getElementById("message").textContent =
+                "Connection error: " + error.message;
+
+            console.error(error);
+
+        }
+
+        finally {
+
+            button.disabled = false;
+
+        }
+
+    }
+
+
+    // LOAD SALES SUMMARY FROM JAVA REST API
+
+    async function loadSummary() {
+
+        const response = await fetch(
+            "/api/reports/summary"
+        );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to retrieve sales summary."
+            );
+
+        }
+
+        const summary = await response.json();
+
+
+        document.getElementById("totalCustomers").textContent =
+            summary.totalCustomers.toLocaleString();
+
+
+        document.getElementById("totalGold").textContent =
+            formatNumber(summary.totalGold);
+
+
+        document.getElementById("totalSales").textContent =
+            formatCurrency(summary.totalSales);
+
+
+        document.getElementById("averageGold").textContent =
+            formatNumber(summary.averageGold);
+
+    }
+
+
+    // FORMAT NUMBERS
+
+    function formatNumber(value) {
+
+        return Number(value || 0).toLocaleString(
+            "en-CA",
+            {
+                maximumFractionDigits: 2
+            }
+        );
+
+    }
+
+
+    // FORMAT CURRENCY
+
+    function formatCurrency(value) {
+
+        return new Intl.NumberFormat(
+            "en-CA",
+            {
+                style: "currency",
+                currency: "CAD"
+            }
+        ).format(value || 0);
+
+    }
+
+
+    // DISPLAY CUSTOMER INFORMATION
+
+    function displayCustomers() {
+
+        const search = document.getElementById(
+            "searchInput"
+        ).value.toLowerCase();
+
+
+        const filter = document.getElementById(
+            "goldFilter"
+        ).value;
+
+
+        const filteredCustomers = customers.filter(user => {
+
+            const username = String(
+                user.userName || ""
+            ).toLowerCase();
+
+
+            const character = String(
+                user.characterName || ""
+            ).toLowerCase();
+
+
+            const gold = Number(
+                user.goldPurchaseAmount || 0
+            );
+
+
+            const matchesSearch =
+                username.includes(search) ||
+                character.includes(search);
+
+
+            let matchesFilter = true;
+
+
+            if (filter === "small") {
+
+                matchesFilter = gold < 1000000;
+
+            }
+
+
+            if (filter === "medium") {
+
+                matchesFilter =
+                    gold >= 1000000 &&
+                    gold <= 10000000;
+
+            }
+
+
+            if (filter === "large") {
+
+                matchesFilter = gold > 10000000;
+
+            }
+
+
+            return matchesSearch && matchesFilter;
+
+        });
+
+
+        const table = document.getElementById(
+            "customerTable"
+        );
+
+
+        // Clear previous results
+
+        table.replaceChildren();
+
+
+        if (filteredCustomers.length === 0) {
+
+            const row = table.insertRow();
+
+            const cell = row.insertCell();
+
+            cell.colSpan = 5;
+
+            cell.textContent =
+                "No matching customers found.";
+
+        }
+
+
+        else {
+
+            filteredCustomers.forEach(user => {
+
+                const row = table.insertRow();
+
+
+                const gold = Number(
+                    user.goldPurchaseAmount || 0
+                );
+
+
+                const values = [
+
+                    user.userName || "",
+
+                    user.characterName || "",
+
+                    user.userEmail || "",
+
+                    formatNumber(gold),
+
+                    formatCurrency(
+                        gold * GOLD_VALUE
+                    )
+
+                ];
+
+
+                values.forEach(value => {
+
+                    const cell = row.insertCell();
+
+                    cell.textContent = value;
+
+                });
+
+            });
+
+        }
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            filteredCustomers.length + " records found";
+
+    }
+
+
+    // SEARCH CUSTOMERS
+
+    document.getElementById("searchInput")
+        .addEventListener("input", displayCustomers);
+
+
+    // FILTER CUSTOMERS
+
+    document.getElementById("goldFilter")
+        .addEventListener("change", displayCustomers);
+
+
+    // EXPORT CUSTOMER REPORT TO CSV
+
+    function exportCSV() {
+
+        const search = document.getElementById(
+            "searchInput"
+        ).value.toLowerCase();
+
+
+        const filter = document.getElementById(
+            "goldFilter"
+        ).value;
+
+
+        const filteredCustomers = customers.filter(user => {
+
+            const username = String(
+                user.userName || ""
+            ).toLowerCase();
+
+
+            const character = String(
+                user.characterName || ""
+            ).toLowerCase();
+
+
+            const gold = Number(
+                user.goldPurchaseAmount || 0
+            );
+
+
+            const matchesSearch =
+                username.includes(search) ||
+                character.includes(search);
+
+
+            let matchesFilter = true;
+
+
+            if (filter === "small") {
+
+                matchesFilter = gold < 1000000;
+
+            }
+
+
+            if (filter === "medium") {
+
+                matchesFilter =
+                    gold >= 1000000 &&
+                    gold <= 10000000;
+
+            }
+
+
+            if (filter === "large") {
+
+                matchesFilter = gold > 10000000;
+
+            }
+
+
+            return matchesSearch && matchesFilter;
+
+        });
+
+
+        if (filteredCustomers.length === 0) {
+
+            alert("There are no records to export.");
+
+            return;
+
+        }
+
+
+        const headers = [
+
+            "Username",
+
+            "Character",
+
+            "Email",
+
+            "Gold Purchased",
+
+            "Purchase Value"
+
+        ];
+
+
+        const rows = filteredCustomers.map(user => {
+
+            const gold = Number(
+                user.goldPurchaseAmount || 0
+            );
+
+
+            return [
+
+                user.userName || "",
+
+                user.characterName || "",
+
+                user.userEmail || "",
+
+                gold,
+
+                (gold * GOLD_VALUE).toFixed(2)
+
+            ];
+
+        });
+
+
+        // Escape CSV values safely
+
+        function escapeCSV(value) {
+
+            const safeValue = String(value);
+
+            const protectedValue =
+                /^[\s]*[=+\-@]/.test(safeValue)
+                    ? "'" + safeValue
+                    : safeValue;
+
+            return '"' +
+                protectedValue.replace(/"/g, '""') +
+                '"';
+
+        }
+
+
+        const csv = [
+
+            headers,
+
+            ...rows
+
+        ].map(row =>
+
+            row.map(escapeCSV).join(",")
+
+        ).join("\r\n");
+
+
+        const blob = new Blob(
+
+            ["\uFEFF" + csv],
+
+            {
+                type: "text/csv;charset=utf-8;"
+            }
+
+        );
+
+
+        const url = URL.createObjectURL(blob);
+
+
+        const link = document.createElement("a");
+
+        link.href = url;
+
+        link.download = "osrs_customer_report.csv";
+
+        link.click();
+
+
+        URL.revokeObjectURL(url);
+
+    }
+
+
+    // AUTOMATICALLY LOAD DASHBOARD WHEN PAGE OPENS
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        loadDashboard
+    );
+
+
+</script>
+
+</body>
+
+</html>
